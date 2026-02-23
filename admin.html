@@ -273,6 +273,20 @@ tr:hover td{background:#fafbfc}
   .stats{grid-template-columns:1fr 1fr}
   .bcal-wrap{grid-template-columns:1fr}
 }
+@media(max-width:520px){
+  .topbar{flex-direction:column;align-items:flex-start}
+  .card-body{padding:14px}
+  th,td{padding:9px 8px}
+  table{font-size:12px}
+}
+@media(max-width:420px){
+  .stats{grid-template-columns:1fr}
+  .card-head{padding:12px 14px}
+  .main-content{padding:14px;padding-top:56px}
+  .filters{flex-direction:column;align-items:stretch}
+  .filters .fbtn{width:100%}
+  .add-row{grid-template-columns:1fr}
+}
 
 /* hr */
 hr{border:none;border-top:1px solid var(--border);margin:16px 0}
