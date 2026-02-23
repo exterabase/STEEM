@@ -1,25 +1,66 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Банний комплекс STEEM</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Банний комплекс STEEM</title>
 
-<script>
-const IMAGES = {
-  // hero: відео встановлено окремо (/home/lelouch/Page/video.mp4)
-  banya_velika: ["/home/lelouch/Page/big/banya_big_1.jpg","/home/lelouch/Page/big/banya_big_2.jpg","/home/lelouch/Page/big/banya_big_3.jpg","/home/lelouch/Page/big/banya_big_4.jpg","/home/lelouch/Page/big/banya_big_5.jpg","/home/lelouch/Page/big/banya_big_6.jpg","/home/lelouch/Page/big/banya_big_7.jpg","/home/lelouch/Page/big/banya_big_8.jpg","/home/lelouch/Page/big/banya_big_9.jpg","/home/lelouch/Page/big/banya_big_10.jpg","/home/lelouch/Page/big/banya_big_11.jpg","/home/lelouch/Page/big/banya_big_12.jpg","/home/lelouch/Page/big/banya_big_13.jpg","/home/lelouch/Page/big/banya_big_14.jpg","/home/lelouch/Page/big/banya_big_15.jpg","/home/lelouch/Page/big/banya_big_16.jpg","/home/lelouch/Page/big/banya_big_17.jpg","/home/lelouch/Page/big/banya_big_18.jpg","/home/lelouch/Page/big/banya_big_19.jpg","/home/lelouch/Page/big/banya_big_20.jpg","/home/lelouch/Page/big/banya_big_21.jpg","/home/lelouch/Page/big/banya_big_22.jpg","/home/lelouch/Page/big/banya_big_23.jpg","/home/lelouch/Page/big/banya_big_24.jpg"],
-  banya_mala: ["/home/lelouch/Page/small/banya_small_1.jpg","/home/lelouch/Page/small/banya_small_2.jpg","/home/lelouch/Page/small/banya_small_3.jpg","/home/lelouch/Page/small/banya_small_4.jpg","/home/lelouch/Page/small/banya_small_5.jpg","/home/lelouch/Page/small/banya_small_6.jpg","/home/lelouch/Page/small/banya_small_7.jpg","/home/lelouch/Page/small/banya_small_8.jpg"],
-  hamam_chan: ["/home/lelouch/Page/hamam/hamam_1.jpg","/home/lelouch/Page/hamam/hamam_2.jpg","/home/lelouch/Page/hamam/hamam_3.jpg","/home/lelouch/Page/hamam/hamam_4.jpg","/home/lelouch/Page/hamam/hamam_5.jpg","/home/lelouch/Page/hamam/hamam_6.jpg","/home/lelouch/Page/hamam/hamam_7.jpg","/home/lelouch/Page/hamam/hamam_8.jpg","/home/lelouch/Page/hamam/hamam_9.jpg","/home/lelouch/Page/hamam/hamam_10.jpg"],
-  dim_velykyi: ["/home/lelouch/Page/big/dim_big_1.jpg","/home/lelouch/Page/big/dim_big_2.jpg","/home/lelouch/Page/big/dim_big_3.jpg","/home/lelouch/Page/big/dim_big_4.jpg","/home/lelouch/Page/big/dim_big_5.jpg","/home/lelouch/Page/big/dim_big_6.jpg","/home/lelouch/Page/big/dim_big_7.jpg","/home/lelouch/Page/big/dim_big_8.jpg"],
-  dim_malyi: ["/home/lelouch/Page/small/dim_small_1.jpg","/home/lelouch/Page/small/dim_small_2.jpg","/home/lelouch/Page/small/dim_small_3.jpg","/home/lelouch/Page/small/dim_small_4.jpg","/home/lelouch/Page/small/dim_small_5.jpg","/home/lelouch/Page/small/dim_small_6.jpg","/home/lelouch/Page/small/dim_small_7.jpg","/home/lelouch/Page/small/dim_small_8.jpg"],
-  basein: ["/home/lelouch/Page/basein/basein_1.jpg","/home/lelouch/Page/basein/basein_2.jpg","/home/lelouch/Page/basein/basein_3.jpg","/home/lelouch/Page/basein/basein_4.jpg","/home/lelouch/Page/basein/basein_5.jpg","/home/lelouch/Page/basein/basein_6.jpg","/home/lelouch/Page/basein/basein_7.jpg","/home/lelouch/Page/basein/basein_8.jpg"],
-  altanka: ["/home/lelouch/Page/altanka/altanka_1.jpg","/home/lelouch/Page/altanka/altanka_2.jpg","/home/lelouch/Page/altanka/altanka_3.jpg","/home/lelouch/Page/altanka/altanka_4.jpg","/home/lelouch/Page/altanka/altanka_5.jpg","/home/lelouch/Page/altanka/altanka_6.jpg","/home/lelouch/Page/altanka/altanka_7.jpg","/home/lelouch/Page/altanka/altanka_8.jpg"],
-};
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    </noscript>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        const IMAGES = {
+            banya_velika: [
+                "big/banya_big_1.jpg", "big/banya_big_2.jpg", "big/banya_big_3.jpg", 
+                "big/banya_big_4.jpg", "big/banya_big_5.jpg", "big/banya_big_6.jpg", 
+                "big/banya_big_7.jpg", "big/banya_big_8.jpg", "big/banya_big_9.jpg", 
+                "big/banya_big_10.jpg", "big/banya_big_11.jpg", "big/banya_big_12.jpg", 
+                "big/banya_big_13.jpg", "big/banya_big_14.jpg", "big/banya_big_15.jpg", 
+                "big/banya_big_16.jpg", "big/banya_big_17.jpg", "big/banya_big_18.jpg", 
+                "big/banya_big_19.jpg", "big/banya_big_20.jpg", "big/banya_big_21.jpg", 
+                "big/banya_big_22.jpg", "big/banya_big_23.jpg", "big/banya_big_24.jpg"
+            ],
+            banya_mala: [
+                "small/banya_small_1.jpg", "small/banya_small_2.jpg", "small/banya_small_3.jpg", 
+                "small/banya_small_4.jpg", "small/banya_small_5.jpg", "small/banya_small_6.jpg", 
+                "small/banya_small_7.jpg", "small/banya_small_8.jpg"
+            ],
+            hamam_chan: [
+                "hamam/hamam_1.jpg", "hamam/hamam_2.jpg", "hamam/hamam_3.jpg", 
+                "hamam/hamam_4.jpg", "hamam/hamam_5.jpg", "hamam/hamam_6.jpg", 
+                "hamam/hamam_7.jpg", "hamam/hamam_8.jpg", "hamam/hamam_9.jpg", 
+                "hamam/hamam_10.jpg"
+            ],
+            dim_velykyi: [
+                "big/dim_big_1.jpg", "big/dim_big_2.jpg", "big/dim_big_3.jpg", 
+                "big/dim_big_4.jpg", "big/dim_big_5.jpg", "big/dim_big_6.jpg", 
+                "big/dim_big_7.jpg", "big/dim_big_8.jpg"
+            ],
+            dim_malyi: [
+                "small/dim_small_1.jpg", "small/dim_small_2.jpg", "small/dim_small_3.jpg", 
+                "small/dim_small_4.jpg", "small/dim_small_5.jpg", "small/dim_small_6.jpg", 
+                "small/dim_malyi_7.jpg", "small/dim_small_8.jpg"
+            ],
+            basein: [
+                "basein/basein_1.jpg", "basein/basein_2.jpg", "basein/basein_3.jpg", 
+                "basein/basein_4.jpg", "basein/basein_5.jpg", "basein/basein_6.jpg", 
+                "basein/basein_7.jpg", "basein/basein_8.jpg"
+            ],
+            altanka: [
+                "altanka/altanka_1.jpg", "altanka/altanka_2.jpg", "altanka/altanka_3.jpg", 
+                "altanka/altanka_4.jpg", "altanka/altanka_5.jpg", "altanka/altanka_6.jpg", 
+                "altanka/altanka_7.jpg", "altanka/altanka_8.jpg"
+            ],
+        };
+    </script>
+</head>
+<body>
 </script>
 <link rel="stylesheet" href="style.css">
 </head>
