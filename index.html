@@ -17,44 +17,55 @@
     <script>
         const IMAGES = {
             banya_velika: [
-                "big/banya_big_1.jpg", "big/banya_big_2.jpg", "big/banya_big_3.jpg", 
-                "big/banya_big_4.jpg", "big/banya_big_5.jpg", "big/banya_big_6.jpg", 
-                "big/banya_big_7.jpg", "big/banya_big_8.jpg", "big/banya_big_9.jpg", 
-                "big/banya_big_10.jpg", "big/banya_big_11.jpg", "big/banya_big_12.jpg", 
-                "big/banya_big_13.jpg", "big/banya_big_14.jpg", "big/banya_big_15.jpg", 
-                "big/banya_big_16.jpg", "big/banya_big_17.jpg", "big/banya_big_18.jpg", 
-                "big/banya_big_19.jpg", "big/banya_big_20.jpg", "big/banya_big_21.jpg", 
+                "big/banya_big_1.jpg", "big/banya_big_2.jpg", "big/banya_big_3.jpg",
+                "big/banya_big_4.jpg", "big/banya_big_5.jpg", "big/banya_big_6.jpg",
+                "big/banya_big_7.jpg", "big/banya_big_8.jpg", "big/banya_big_9.jpg",
+                "big/banya_big_10.jpg", "big/banya_big_11.jpg", "big/banya_big_12.jpg",
+                "big/banya_big_13.jpg", "big/banya_big_14.jpg", "big/banya_big_15.jpg",
+                "big/banya_big_16.jpg", "big/banya_big_17.jpg", "big/banya_big_18.jpg",
+                "big/banya_big_19.jpg", "big/banya_big_20.jpg", "big/banya_big_21.jpg",
                 "big/banya_big_22.jpg", "big/banya_big_23.jpg", "big/banya_big_24.jpg"
             ],
             banya_mala: [
-                "small/banya_small_1.jpg", "small/banya_small_2.jpg", "small/banya_small_3.jpg", 
-                "small/banya_small_4.jpg", "small/banya_small_5.jpg", "small/banya_small_6.jpg", 
+                "small/banya_small_1.jpg", "small/banya_small_2.jpg", "small/banya_small_3.jpg",
+                "small/banya_small_4.jpg", "small/banya_small_5.jpg", "small/banya_small_6.jpg",
                 "small/banya_small_7.jpg", "small/banya_small_8.jpg"
             ],
             hamam_chan: [
-                "hamam/hamam_1.jpg", "hamam/hamam_2.jpg", "hamam/hamam_3.jpg", 
-                "hamam/hamam_4.jpg", "hamam/hamam_5.jpg", "hamam/hamam_6.jpg", 
-                "hamam/hamam_7.jpg", "hamam/hamam_8.jpg", "hamam/hamam_9.jpg", 
+                "hamam/hamam_1.jpg", "hamam/hamam_2.jpg", "hamam/hamam_3.jpg",
+                "hamam/hamam_4.jpg", "hamam/hamam_5.jpg", "hamam/hamam_6.jpg",
+                "hamam/hamam_7.jpg", "hamam/hamam_8.jpg", "hamam/hamam_9.jpg",
+                "hamam/hamam_10.jpg"
+            ],
+            chan: [
+                "hamam/hamam_1.jpg", "hamam/hamam_2.jpg", "hamam/hamam_3.jpg",
+                "hamam/hamam_5.jpg", "hamam/hamam_6.jpg",
+                "hamam/hamam_7.jpg", "hamam/hamam_8.jpg", "hamam/hamam_9.jpg",
+                "hamam/hamam_10.jpg"
+            ],
+            hamam: [
+                "hamam/hamam_4.jpg", "hamam/hamam_5.jpg", "hamam/hamam_6.jpg",
+                "hamam/hamam_7.jpg", "hamam/hamam_8.jpg", "hamam/hamam_9.jpg",
                 "hamam/hamam_10.jpg"
             ],
             dim_velykyi: [
-                "big/dim_big_1.jpg", "big/dim_big_2.jpg", "big/dim_big_3.jpg", 
-                "big/dim_big_4.jpg", "big/dim_big_5.jpg", "big/dim_big_6.jpg", 
+                "big/dim_big_1.jpg", "big/dim_big_2.jpg", "big/dim_big_3.jpg",
+                "big/dim_big_4.jpg", "big/dim_big_5.jpg", "big/dim_big_6.jpg",
                 "big/dim_big_7.jpg", "big/dim_big_8.jpg"
             ],
             dim_malyi: [
-                "small/dim_small_1.jpg", "small/dim_small_2.jpg", "small/dim_small_3.jpg", 
-                "small/dim_small_4.jpg", "small/dim_small_5.jpg", "small/dim_small_6.jpg", 
+                "small/dim_small_1.jpg", "small/dim_small_2.jpg", "small/dim_small_3.jpg",
+                "small/dim_small_4.jpg", "small/dim_small_5.jpg", "small/dim_small_6.jpg",
                 "small/dim_malyi_7.jpg", "small/dim_small_8.jpg"
             ],
             basein: [
-                "basein/basein_1.jpg", "basein/basein_2.jpg", "basein/basein_3.jpg", 
-                "basein/basein_4.jpg", "basein/basein_5.jpg", "basein/basein_6.jpg", 
+                "basein/basein_1.jpg", "basein/basein_2.jpg", "basein/basein_3.jpg",
+                "basein/basein_4.jpg", "basein/basein_5.jpg", "basein/basein_6.jpg",
                 "basein/basein_7.jpg", "basein/basein_8.jpg"
             ],
             altanka: [
-                "altanka/altanka_1.jpg", "altanka/altanka_2.jpg", "altanka/altanka_3.jpg", 
-                "altanka/altanka_4.jpg", "altanka/altanka_5.jpg", "altanka/altanka_6.jpg", 
+                "altanka/altanka_1.jpg", "altanka/altanka_2.jpg", "altanka/altanka_3.jpg",
+                "altanka/altanka_4.jpg", "altanka/altanka_5.jpg", "altanka/altanka_6.jpg",
                 "altanka/altanka_7.jpg", "altanka/altanka_8.jpg"
             ],
         };
@@ -64,7 +75,6 @@
 </script>
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
 <!-- SVG ICONS -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
   <symbol id="ic-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 3z"/></symbol>
@@ -89,7 +99,7 @@
   <symbol id="ic-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
   <symbol id="ic-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol>
   <symbol id="ic-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></symbol>
-  <symbol id="ic-viber" viewBox="0 0 24 24" fill="currentColor"><path d="M11.4 0C5.9.2 1.9 4.4 2 9.9c.1 2.6.9 4.8 2.5 6.6v4l3.8-1.2c1 .3 2.1.5 3.2.5 5.5.2 10.1-4 10.5-9.5C22.4 4.4 17.5-.2 11.4 0zm2.7 15.7l-.1.1c-.4.3-.7.4-1.1.3h-.1c-1.3-.5-2.6-1.2-3.6-2.2s-1.8-2.2-2.3-3.5c-.2-.4-.1-.8.2-1.1l.1-.1c.5-.5 1-.6 1.4-.3l.1.1c.4.4.8.9 1.1 1.4.2.3.1.7-.2.9l-.4.3c-.1.1-.1.2-.1.3.3.8.9 1.4 1.7 1.8.1 0 .2 0 .3-.1l.3-.4c.2-.3.6-.4.9-.2.5.3 1 .7 1.4 1.1l.1.1c.3.4.2.9-.2 1.4zm.3-5.6c-.2 0-.3-.1-.3-.3-.2-1.2-1.2-2.1-2.5-2.3-.2 0-.3-.2-.3-.4s.2-.3.4-.3c1.6.2 2.9 1.4 3.1 3 0 .2-.2.3-.4.3zm2 .7c-.2 0-.3-.1-.4-.3-.3-2-1.8-3.5-3.9-3.9-.2 0-.3-.2-.3-.4s.2-.3.4-.3c2.4.4 4.2 2.2 4.6 4.6 0 .2-.1.3-.4.3zm2.1.6c-.2 0-.4-.1-.4-.3-.4-2.8-2.6-5-5.5-5.5-.2 0-.3-.2-.3-.4s.2-.3.4-.3c3.2.6 5.7 3 6.2 6.1 0 .2-.2.4-.4.4z"/></symbol>
+  <symbol id="ic-viber" viewBox="0 0 24 24" fill="currentColor"><path d="M4 0C5.9.2 1.9 4.4 2 9.9c.1 2.11.6.9 4.8 2.5 6.6v4l3.8-1.2c1 .3 2.1.5 3.2.5 5.5.2 10.1-4 10.5-9.5C22.4 4.4 17.5-.2 11.4 0zm2.7 15.7l-.1.1c-.4.3-.7.4-1.1.3h-.1c-1.3-.5-2.6-1.2-3.6-2.2s-1.8-2.2-2.3-3.5c-.2-.4-.1-.8.2-1.1l.1-.1c.5-.5 1-.6 1.4-.3l.1.1c.4.4.8.9 1.1 1.4.2.3.1.7-.2.9l-.4.3c-.1.1-.1.2-.1.3.3.8.9 1.4 1.7 1.8.1 0 .2 0 .3-.1l.3-.4c.2-.3.6-.4.9-.2.5.3 1 .7 1.4 1.1l.1.1c.3.4.2.9-.2 1.4zm.3-5.6c-.2 0-.3-.1-.3-.3-.2-1.2-1.2-2.1-2.5-2.3-.2 0-.3-.2-.3-.4s.2-.3.4-.3c1.6.2 2.9 1.4 3.1 3 0 .2-.2.3-.4.3zm2 .7c-.2 0-.3-.1-.4-.3-.3-2-1.8-3.5-3.9-3.9-.2 0-.3-.2-.3-.4s.2-.3.4-.3c2.4.4 4.2 2.2 4.6 4.6 0 .2-.1.3-.4.3zm2.1.6c-.2 0-.4-.1-.4-.3-.4-2.8-2.6-5-5.5-5.5-.2 0-.3-.2-.3-.4s.2-.3.4-.3c3.2.6 5.7 3 6.2 6.1 0 .2-.2.4-.4.4z"/></symbol>
   <symbol id="ic-telegram" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></symbol>
   <symbol id="ic-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></symbol>
   <symbol id="ic-tiktok" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.15a8.16 8.16 0 004.77 1.52V7.2a4.85 4.85 0 01-1-.51z"/></symbol>
@@ -444,6 +454,17 @@
   </div>
 </div>
 
+<!-- IMAGE VIEWER MODAL -->
+<div class="ovl" id="imgModal" onclick="if(event.target===this)closeImg()">
+  <div class="lb-wrap">
+    <button class="lb-cl" onclick="closeImg()"><svg class="icon" width="16" height="16"><use href="#ic-x"/></svg></button>
+    <button class="lb-arr lb-arr-l" onclick="lbPrev()"><svg class="icon" width="22" height="22"><use href="#ic-chevl"/></svg></button>
+    <img id="imgFull" src="" alt="" class="img-full" onclick="lbNext()">
+    <button class="lb-arr lb-arr-r" onclick="lbNext()"><svg class="icon" width="22" height="22"><use href="#ic-chevr"/></svg></button>
+    <div class="lb-counter" id="lbCounter"></div>
+  </div>
+</div>
+
 <div class="flts">
   <a href="tel:+380985452146" class="fb fb-ph"><svg width="22" height="22"><use href="#ic-phone"/></svg><span class="ftip">+38 (098) 545-21-46</span></a>
   <a href="viber://chat?number=%2B380985452146" class="fb fb-vb"><svg width="22" height="22"><use href="#ic-viber"/></svg><span class="ftip">Viber</span></a>
@@ -484,24 +505,34 @@
 const LOCS={
   uk:{
     winter:[
-      {key:'banya_velika',name:'Баня велика',priceLabel:'Уточнюйте ціну',capacity:'до 16 осіб',
+      {key:'banya_velika',name:'Баня велика',priceLabel:'800 грн/год',capacity:'до 16 осіб',
        olx:'https://www.olx.ua/d/uk/obyavlenie/banya-na-drovah-laznya-baseyn-blyard-kamn-banniy-kompleks-steem-IDREbtL.html',
        desc:'Велика баня на дровах для великої компанії. Просторна парна, більярд, камін, басейн, кухня та зона відпочинку.',
        tags:['до 16 осіб','Басейн','Більярд','Камін','Кухня'],
        inc:'Шапочки включено',notinc:'Рушники, тапочки, чай, віники — окремо',
-       min:'Мін. 3 год · бронювання за 3 год',tb:'t1',icon:'ic-sauna',price:0},
-      {key:'banya_mala',name:'Баня мала',priceLabel:'Уточнюйте ціну',capacity:'до 10 осіб',
+       min:'Мін. 3 год · бронювання за 3 год',tb:'t1',icon:'ic-sauna',price:800},
+      {key:'banya_mala',name:'Баня мала',priceLabel:'700 грн/год',capacity:'до 10 осіб',
        olx:'https://www.olx.ua/d/uk/obyavlenie/banya-na-drovah-laznya-baseyn-banniy-kompleks-steem-IDVDfWu.html',
        desc:'Затишна баня на дровах для невеликої компанії або сімейного відпочинку. Парна, купіль, зона відпочинку.',
        tags:['до 10 осіб','Парна','Купіль','Зона відпочинку'],
        inc:'Шапочки включено',notinc:'Рушники, тапочки, чай, віники — окремо',
-       min:'Мін. 3 год · бронювання за 3 год',tb:'t2',icon:'ic-steam',price:0},
-      {key:'hamam_chan',name:'Хамам та Чан',priceLabel:'Уточнюйте ціну',capacity:'до 10 осіб',
+       min:'Мін. 3 год · бронювання за 3 год',tb:'t2',icon:'ic-steam',price:700},
+      {key:'hamam_chan',name:'Хамам та Чан',priceLabel:'1200 грн/год',capacity:'до 10 осіб',
        olx:'https://www.olx.ua/d/uk/obyavlenie/chan-hamam-baseyn-banniy-kompleks-steem-IDX4bsn.html',
        desc:'Комплекс: турецький хамам з мармуровим лежаком + дерев\'яний чан під відкритим небом.',
        tags:['до 10 осіб','Хамам','Чан','Відкрите небо'],
        inc:'Шапочки включено',notinc:'Рушники, тапочки — окремо',
-       min:'Чан: бронювання за 7 год | Хамам: за 1 год',tb:'t3',icon:'ic-drop',price:0},
+       min:'Чан: бронювання за 7 год | Хамам: за 1 год',tb:'t3',icon:'ic-drop',price:1200},
+      {key:'chan',name:'Чан',priceLabel:'Уточнюйте ціну',capacity:'до 8 осіб',
+       olx:'',desc:'Дерев\'яний чан під відкритим небом з гарячою водою для релаксу взимку.',
+       tags:['до 8 осіб','Чан','Відкрите небо'],
+       inc:'Шапочки включено',notinc:'Рушники — окремо',
+       min:'Бронювання за 7 год',tb:'t3',icon:'ic-drop',price:0},
+      {key:'hamam',name:'Хамам',priceLabel:'Уточнюйте ціну',capacity:'до 6 осіб',
+       olx:'',desc:'Турецький хамам з м\'яким паром та мармуровим лежаком.',
+       tags:['до 6 осіб','Хамам','Парна'],
+       inc:'Шапочки включено',notinc:'Рушники — окремо',
+       min:'Бронювання за 1 год',tb:'t3',icon:'ic-drop',price:0},
     ],
     summer:[
       {key:'dim_velykyi',name:'Великий будинок',priceLabel:'5000 грн/доба (пн–чт), 6000 грн/доба (пт–нд)',capacity:'до 16 осіб',
@@ -530,6 +561,8 @@ const RU={
   banya_velika:{name:'Баня большая',desc:'Большая баня на дровах для большой компании. Бассейн, бильярд, камин, кухня.',tags:['до 16 чел.','Бассейн','Бильярд','Камин','Кухня'],min:'Мин. 3 ч · бронирование за 3 ч',inc:'Шапочки включены',notinc:'Полотенца, тапки, чай, веники — отдельно'},
   banya_mala:{name:'Баня малая',desc:'Уютная баня на дровах для небольшой компании.',tags:['до 10 чел.','Парная','Купель','Зона отдыха'],min:'Мин. 3 ч · бронирование за 3 ч',inc:'Шапочки включены',notinc:'Полотенца, тапки, чай, веники — отдельно'},
   hamam_chan:{name:'Хамам и Чан',desc:'Комплекс: турецкий хамам + деревянный чан под открытым небом.',tags:['до 10 чел.','Хамам','Чан','Открытое небо'],min:'Чан: за 7 ч | Хамам: за 1 ч',inc:'Шапочки включены',notinc:'Полотенца — отдельно'},
+  chan:{name:'Чан',desc:'Деревянный чан под открытым небом с горячей водой для зимнего отдыха.',tags:['до 8 чел.','Чан','Открытое небо'],min:'Бронирование за 7 ч',inc:'Шапочки включены',notinc:'Полотенца — отдельно'},
+  hamam:{name:'Хамам',desc:'Турецкий хамам с мягким паром и мраморным лежаком.',tags:['до 6 чел.','Хамам','Парная'],min:'Бронирование за 1 ч',inc:'Шапочки включены',notinc:'Полотенца — отдельно'},
   dim_velykyi:{name:'Большой дом',desc:'Большой дом для группового отдыха. Посуточная аренда.',tags:['до 16 чел.','Посуточно','Кухня','Мангал'],min:'Посуточная аренда',inc:'Постельное бельё включено',notinc:'Полотенца — отдельно'},
   dim_malyi:{name:'Маленький дом',desc:'Уютный домик для семейного отдыха.',tags:['до 8 чел.','Посуточно','Кухня','Мангал'],min:'Посуточная аренда',inc:'Постельное бельё включено',notinc:'Полотенца — отдельно'},
   basein:{name:'Бассейн',desc:'Открытый бассейн в тёплое время года.',tags:['до 20 чел.','Открытый','Летний'],min:'Мин. 1 ч',inc:'',notinc:'Полотенца — отдельно'},
@@ -651,7 +684,8 @@ function renderGrid(id,locs,s){
   g.innerHTML=locs.map(l=>{
     const imgs=IMAGES[l.key]||[];
     const fi=imgs.find(x=>x&&x.trim()!=='');
-    const imgHTML=fi?`<img src="${fi}" alt="${l.name}" onerror="this.remove()">`:'';
+    const safeName=(l.name||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    const imgHTML=fi?`<img src="${fi}" alt="${safeName}" onerror="this.remove()">`:'';
     const sel=selKey===l.key;
     const sc=sel?(s==='winter'?' sw':' ss'):'';
     const chkSvg=`<svg width="11" height="11"><use href="#ic-check"/></svg>`;
@@ -697,6 +731,9 @@ function selLoc(key,s){
   setTimeout(()=>document.getElementById('ldetail').scrollIntoView({behavior:'smooth',block:'nearest'}),100);
 }
 
+// current location images for lightbox navigation
+let _lbImgs=[], _lbIdx=0;
+
 function openDetail(key){
   const l=allLocs().find(x=>x.key===key);if(!l)return;
   const d=document.getElementById('ldetail');d.classList.add('on');
@@ -714,7 +751,10 @@ function openDetail(key){
   const olx=document.getElementById('dolx');
   if(l.olx){olx.href=l.olx;olx.style.display='flex';}else olx.style.display='none';
   curPh=0;
-  const imgs=IMAGES[l.key]||[];const vi=imgs.filter(x=>x&&x.trim()!=='');
+  const imgs=IMAGES[l.key]||[];
+  const vi=imgs.filter(x=>x&&x.trim()!=='');
+  _lbImgs=vi; // store for lightbox navigation
+
   const sl=document.getElementById('pslider');
   sl.querySelectorAll('.psl').forEach(e=>e.remove());
   const dc=document.getElementById('pdts');dc.innerHTML='';
@@ -726,9 +766,16 @@ function openDetail(key){
   phs.forEach((ph,i)=>{
     const div=document.createElement('div');
     div.className=`psl ${TBG[i%8]}${i===0?' on':''}`;
+    // FIX: hidden slides must not catch clicks
+    if(i!==0) div.style.pointerEvents='none';
     if(isR&&ph){
-      const img=document.createElement('img');img.src=ph;img.alt=l.name;
-      img.onerror=()=>{img.remove();}; div.appendChild(img);
+      const img=document.createElement('img');
+      img.src=ph;img.alt=l.name;img.style.cursor='zoom-in';
+      // FIX: pass index, not variable reference captured in loop
+      img.dataset.idx=i;
+      img.addEventListener('click',function(){openLightbox(parseInt(this.dataset.idx));});
+      img.onerror=()=>{img.remove();};
+      div.appendChild(img);
     }
     const fbDiv=document.createElement('div');
     fbDiv.innerHTML=`<svg width="90" height="90"><use href="#${l.icon}"/></svg>`;
@@ -739,7 +786,40 @@ function openDetail(key){
 }
 function prevP(){const p=document.querySelectorAll('.psl');goPh((curPh-1+p.length)%p.length)}
 function nextP(){const p=document.querySelectorAll('.psl');goPh((curPh+1)%p.length)}
-function goPh(n){curPh=n;document.querySelectorAll('.psl').forEach((s,i)=>s.classList.toggle('on',i===n));document.querySelectorAll('.pdt').forEach((d,i)=>d.classList.toggle('on',i===n))}
+function goPh(n){
+  curPh=n;
+  document.querySelectorAll('.psl').forEach((s,i)=>{
+    s.classList.toggle('on',i===n);
+    // FIX: enable pointer-events only on visible slide
+    s.style.pointerEvents=i===n?'auto':'none';
+  });
+  document.querySelectorAll('.pdt').forEach((d,i)=>d.classList.toggle('on',i===n));
+}
+
+// LIGHTBOX with navigation
+function openLightbox(idx){
+  if(!_lbImgs.length) return;
+  _lbIdx=idx;
+  const ov=document.getElementById('imgModal');
+  if(!ov) return;
+  ov.classList.add('on');
+  _lbUpdate();
+}
+function _lbUpdate(){
+  const img=document.getElementById('imgFull');
+  const counter=document.getElementById('lbCounter');
+  if(img) img.src=_lbImgs[_lbIdx]||'';
+  if(counter) counter.textContent=(_lbIdx+1)+' / '+_lbImgs.length;
+}
+function lbPrev(){_lbIdx=(_lbIdx-1+_lbImgs.length)%_lbImgs.length;_lbUpdate();}
+function lbNext(){_lbIdx=(_lbIdx+1)%_lbImgs.length;_lbUpdate();}
+function openImage(src,alt){openLightbox(_lbImgs.indexOf(src)>=0?_lbImgs.indexOf(src):0);}
+function closeImg(){
+  const ov=document.getElementById('imgModal');
+  const img=document.getElementById('imgFull');
+  if(ov) ov.classList.remove('on');
+  if(img) img.src='';
+}
 
 function renderCal(){
   const t=tr();
@@ -765,12 +845,51 @@ function renderCal(){
 function prevM(){curM--;if(curM<0){curM=11;curY--;}renderCal()}
 function nextM(){curM++;if(curM>11){curM=0;curY++;}renderCal()}
 
+// Визначаємо ключ локації для бронювання (щоб бронювання різних локацій не блокували одне одного)
+function getBookingLocKey(b){
+  // Клієнтські бронювання: saunaIdx = 'banya_velika' тощо
+  if(typeof b.saunaIdx==='string'&&b.saunaIdx) return b.saunaIdx;
+  // Адмінські бронювання: saunaIdx = 0..4 (див. SAUNA_NAMES в admin.html)
+  if(typeof b.saunaIdx==='number'){
+    const map=['banya_mala','banya_velika','hamam_chan','dim_velykyi','dim_malyi'];
+    if(map[b.saunaIdx]!=null) return map[b.saunaIdx];
+  }
+  // Резерв: спроба визначити по назві
+  const n=(b.sauna||'').trim();
+  const byName={
+    'Маленька баня':'banya_mala',
+    'Велика баня':'banya_velika',
+    'Чан і Хамам':'hamam_chan',
+    'Чан':'chan',
+    'Хамам':'hamam',
+    'Великий будинок':'dim_velykyi',
+    'Маленький будинок':'dim_malyi',
+    'Маленькая баня':'banya_mala',
+    'Большая баня':'banya_velika',
+    'Хамам и Чан':'hamam_chan',
+    'Большой дом':'dim_velykyi',
+    'Маленький дом':'dim_malyi'
+  };
+  return byName[n]||null;
+}
+
 function getBooked(ds){
   const all=JSON.parse(localStorage.getItem('spa_bookings')||'[]');
   const bl=JSON.parse(localStorage.getItem('spa_blocked')||'{}');
   const b=new Set(),cl=new Set();
-  all.filter(x=>x.date===ds&&x.status!=='cancelled').forEach(x=>{for(let h=x.startH;h<x.startH+x.hours;h++)b.add(h);cl.add(x.startH+x.hours)});
-  (bl[ds]||[]).forEach(h=>b.add(h));return{b,cl};
+  const locKey=selKey||null;
+  all.forEach(x=>{
+    if(x.date!==ds||x.status==='cancelled') return;
+    if(locKey){
+      const bk=getBookingLocKey(x);
+      if(!bk||bk!==locKey) return;
+    }
+    for(let h=x.startH;h<x.startH+x.hours;h++) b.add(h);
+    cl.add(x.startH+x.hours);
+  });
+  // Адмінські блокування залишаємо глобальними (для всього комплексу)
+  (bl[ds]||[]).forEach(h=>b.add(h));
+  return{b,cl};
 }
 function renderTS(){
   if(!selD){document.getElementById('twrap').innerHTML=`<div class="nodt" id="nodtmsg"><svg class="icon" width="16" height="16" style="color:var(--border)"><use href="#ic-calendar"/></svg> ${tr().nodtmsg}</div>`;return}
@@ -1038,10 +1157,32 @@ function showToast(msg,type='',duration=4000){
   setTimeout(()=>t.classList.add('on'),30);
   setTimeout(()=>{t.classList.remove('on');setTimeout(()=>t.remove(),400)},duration);
 }
+function openImage(src,alt){
+  const ov=document.getElementById('imgModal');
+  const img=document.getElementById('imgFull');
+  if(!ov||!img)return;
+  img.src=src;
+  img.alt=alt||'';
+  ov.classList.add('on');
+}
+function closeImg(){
+  const ov=document.getElementById('imgModal');
+  const img=document.getElementById('imgFull');
+  if(ov) ov.classList.remove('on');
+  if(img) img.src='';
+}
 function toSec(){document.getElementById('mainSec').scrollIntoView({behavior:'smooth',block:'start'})}
 function toBook(){document.getElementById('bsec').scrollIntoView({behavior:'smooth',block:'start'})}
 
 applyTr();init();setTimeout(initRipples,200);
+// Keyboard navigation for lightbox
+document.addEventListener('keydown',e=>{
+  const lb=document.getElementById('imgModal');
+  if(!lb||!lb.classList.contains('on')) return;
+  if(e.key==='ArrowLeft') lbPrev();
+  else if(e.key==='ArrowRight') lbNext();
+  else if(e.key==='Escape') closeImg();
+});
 </script>
 </body>
 </html>
