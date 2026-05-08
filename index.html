@@ -1,254 +1,1188 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>L.L</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Укрзалізниця">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#07091a">
+<meta name="application-name" content="Укрзалізниця">
+<title>Укрзалізниця</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{height:100%;background:#000}
+body{
+  height:100%;background:#000;font-family:'Manrope',sans-serif;overflow:hidden;
+  /* safe area for notch/home indicator */
+  padding-top:env(safe-area-inset-top);
+  padding-bottom:env(safe-area-inset-bottom);
+}
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+#app{
+  position:fixed;top:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:430px;
+  height:100%;
+  display:flex;flex-direction:column;
+  overflow:hidden;background:#07091a;color:#fff;
+}
 
-    body {
-      min-height: 100vh;
-      width: 100vw;
-      background: #06060e;
-      overflow: hidden;
-      cursor: pointer;
-      user-select: none;
-      font-family: 'Cinzel', serif;
-    }
+.scr{display:none;flex:1;overflow-y:auto;overflow-x:hidden;flex-direction:column;-webkit-overflow-scrolling:touch}
+.scr::-webkit-scrollbar{display:none}
+.scr.on{display:flex}
 
-    .wm-grid {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      flex-wrap: wrap;
-      align-content: flex-start;
-      pointer-events: none;
-      transform: rotate(-20deg) scale(1.4);
-      transform-origin: center center;
-    }
+/* ── BOTTOM NAV ── */
+#nav{
+  background:#060915;border-top:1px solid #0e1535;
+  display:flex;flex-shrink:0;z-index:10;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.nb{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:10px 0 11px;border:none;background:none;cursor:pointer;
+  color:#5a6d96;font-family:'Manrope',sans-serif;font-size:10.5px;font-weight:600;
+  transition:color .2s;
+}
+.nb.on{color:#adb6ff}
+.nb svg{width:24px;height:24px}
 
-    .wm-row {
-      width: 100%;
-      display: flex;
-      gap: 32px;
-      padding: 18px 0;
-    }
+/* ══ SEARCH SCREEN ══ */
+#pg-search{background:#0d1038}
+.uzhead{background:#0d1038;padding:20px 18px 0;flex-shrink:0;padding-top:calc(20px + env(safe-area-inset-top))}
+.logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:22px}
+.logo-txt{font-size:19px;font-weight:900;letter-spacing:2px}
+.logo-rails{display:flex;flex-direction:column;gap:3.5px}
+.logo-rails b{display:block;width:24px;height:3px;background:#fff;border-radius:1px}
 
-    .wm {
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      color: rgba(168, 85, 247, 0.09);
-      white-space: nowrap;
-      text-transform: uppercase;
-    }
+.ttabs{display:flex;gap:8px;margin-bottom:18px}
+.ttab{
+  display:flex;align-items:center;gap:6px;padding:9px 14px;
+  border-radius:50px;font-size:13.5px;font-weight:700;cursor:pointer;
+  border:1.5px solid rgba(255,255,255,.25);background:transparent;
+  color:#fff;font-family:'Manrope',sans-serif;transition:all .2s;white-space:nowrap;
+}
+.ttab.on{background:#fff;color:#0d1038;border-color:#fff}
+.ttab svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
 
-    .blob {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(100px);
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 1.2s;
-    }
-    .blob1 { width: 500px; height: 500px; background: #7c3aed; top: -150px; left: -150px; }
-    .blob2 { width: 400px; height: 400px; background: #db2777; bottom: -100px; right: -100px; }
-    .blob3 { width: 300px; height: 300px; background: #4f46e5; top: 40%; left: 50%; transform: translate(-50%,-50%); }
-    .blob.active { opacity: 0.22; }
+.sfwrap{background:#07091a;border-radius:22px 22px 0 0;padding:14px;flex:1;overflow-y:auto}
+.sfwrap::-webkit-scrollbar{display:none}
 
-    .center {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      pointer-events: none;
-    }
+.scard{background:#111929;border-radius:18px;overflow:hidden;margin-bottom:11px;position:relative}
+.srow{display:flex;align-items:flex-start;padding:15px 14px;gap:11px;position:relative}
+.srow+.srow{border-top:1px solid #1a2448}
+.s-dot{width:14px;height:14px;border-radius:50%;border:2.5px solid #3d52d5;flex-shrink:0;margin-top:2px}
+.s-dot.f{background:#3d52d5;border-color:#3d52d5}
+.s-lbl{font-size:13.5px;font-weight:800;margin-bottom:3px}
+.s-inp{
+  background:none;border:none;outline:none;color:#fff;
+  font-family:'Manrope',sans-serif;font-size:13.5px;font-weight:600;
+  width:100%;display:block;
+}
+.s-inp::placeholder{color:#5a6d96;font-weight:500;font-size:13px}
+.arr-mid{
+  position:absolute;left:21px;top:50%;transform:translateY(-50%);
+  color:#5a6d96;font-size:14px;pointer-events:none;z-index:1;line-height:1;
+}
+.swap-btn{
+  position:absolute;right:13px;bottom:13px;
+  width:36px;height:36px;background:#1a2448;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:none;cursor:pointer;z-index:2;
+}
+.swap-btn svg{width:17px;height:17px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 
-    .logo {
-      font-size: clamp(4rem, 15vw, 8rem);
-      font-weight: 900;
-      letter-spacing: 0.15em;
-      background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #f97316 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1;
-      transition: filter 0.3s;
-    }
+.drow{display:flex;align-items:center;background:#111929;border-radius:18px;overflow:hidden;margin-bottom:11px}
+.dcell{flex:1;display:flex;align-items:center;gap:9px;padding:14px 15px;cursor:pointer}
+.dcell+.dcell{border-left:1px solid #1a2448}
+.dcell svg{width:17px;height:17px;stroke:#5a6d96;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.d-txt{font-size:14px;font-weight:800}
+.r-txt{font-size:13.5px;font-weight:700;color:#adb6ff}
+.r-ico{font-size:18px;color:#adb6ff}
 
-    .logo.playing {
-      animation: logopulse 1s ease-in-out infinite alternate;
-    }
+.find-btn{
+  width:100%;padding:17px;background:#adb6ff;border:none;border-radius:50px;
+  font-size:16.5px;font-weight:800;color:#0d1038;cursor:pointer;
+  font-family:'Manrope',sans-serif;margin-bottom:16px;transition:opacity .15s;
+}
+.find-btn:active{opacity:.85}
 
-    @keyframes logopulse {
-      from { filter: drop-shadow(0 0 20px rgba(168,85,247,0.6)); }
-      to   { filter: drop-shadow(0 0 50px rgba(236,72,153,1)); }
-    }
+.pbanner{
+  border-radius:20px;overflow:hidden;position:relative;
+  height:220px;background:#0c1535;margin-bottom:16px;cursor:pointer;
+}
+.pb-over{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 20%,rgba(4,6,18,.9) 100%)}
+.pb-fig{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.pb-fig svg{opacity:.3;width:90%;max-width:340px}
+.pb-txt{position:absolute;bottom:18px;left:18px;right:18px}
+.pb-title{font-size:22px;font-weight:900;margin-bottom:5px}
+.pb-sub{font-size:13px;color:rgba(255,255,255,.75);line-height:1.4}
 
-    .sub {
-      font-size: clamp(0.55rem, 2.5vw, 0.75rem);
-      letter-spacing: 0.5em;
-      color: rgba(255,255,255,0.15);
-      text-transform: uppercase;
-      font-weight: 400;
-    }
+/* ══ TICKETS SCREEN ══ */
+#pg-tickets{background:#07091a}
+.th{background:#0d1038;padding:20px 20px 20px;padding-top:calc(54px + env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.th h1{font-size:26px;font-weight:900}
+.th-dots{color:#fff;font-size:22px;cursor:pointer;background:none;border:none;letter-spacing:2px;font-family:'Manrope',sans-serif;line-height:1}
 
-    .sub.playing { color: rgba(255,255,255,0.35); }
+.t-list{padding:14px 14px 90px}
 
-    .badge {
-      position: fixed;
-      top: 24px;
-      left: 28px;
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      color: rgba(255,255,255,0.12);
-      text-transform: uppercase;
-      pointer-events: none;
-    }
+/* Date group label */
+.t-date-group{margin-bottom:6px}
+.t-date-label{font-size:17px;font-weight:800;color:#fff;padding:14px 4px 10px;display:block}
 
-    .ripple {
-      position: fixed;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(168,85,247,0.2), transparent 70%);
-      transform: scale(0);
-      animation: rippleOut 0.8s ease-out forwards;
-      pointer-events: none;
-    }
-    @keyframes rippleOut {
-      to { transform: scale(5); opacity: 0; }
-    }
+/* Ticket card */
+.tcard{
+  background:#111929;border-radius:20px;padding:18px 18px 0;
+  margin-bottom:10px;border:none;overflow:hidden;
+}
+/* "Приміський" badge */
+.tc-type-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(100,120,255,.18);color:#adb6ff;
+  font-size:12.5px;font-weight:700;
+  padding:5px 11px 5px 9px;border-radius:50px;margin-bottom:12px;
+}
+.tc-type-badge svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+/* Route */
+.tc-route{font-size:22px;font-weight:900;color:#fff;margin-bottom:14px;letter-spacing:-.3px}
+/* Time chips */
+.tc-times{display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tc-time-chip{
+  background:#1e2a50;border-radius:50px;
+  padding:7px 14px;font-size:14px;font-weight:700;color:#fff;white-space:nowrap;
+}
+.tc-schedule-btn{
+  margin-left:auto;background:#2a3568;border:none;border-radius:50px;
+  padding:7px 16px;font-size:13.5px;font-weight:700;color:#adb6ff;
+  cursor:pointer;font-family:'Manrope',sans-serif;white-space:nowrap;transition:background .15s;
+}
+.tc-schedule-btn:active{background:#3a4588}
+/* Divider */
+.tc-divider{height:1px;background:#1e2a48;margin:0 -18px}
+/* Passenger */
+.tc-passenger{font-size:14px;color:#8898bb;padding:13px 0;font-weight:500}
+/* Show button */
+.tc-show-btn{
+  width:calc(100% + 36px);margin:0 -18px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:#adb6ff;border:none;padding:18px;
+  font-size:16.5px;font-weight:800;color:#0d1038;
+  cursor:pointer;font-family:'Manrope',sans-serif;transition:opacity .15s;
+}
+.tc-show-btn:active{opacity:.85}
 
-    .scanlines {
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg, transparent, transparent 2px,
-        rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px
-      );
-      pointer-events: none;
-    }
-  </style>
+/* ── Long-press confirm dialog ── */
+.dlg-overlay{
+  position:fixed;inset:0;z-index:95;
+  background:rgba(0,0,0,.6);
+  display:none;align-items:center;justify-content:center;
+  padding:24px;
+}
+.dlg-overlay.on{display:flex}
+.dlg-box{
+  background:#1a2448;border-radius:22px;
+  width:100%;max-width:340px;
+  overflow:hidden;
+  animation:dlgPop .18s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes dlgPop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.dlg-icon{
+  width:60px;height:60px;border-radius:50%;
+  background:rgba(239,68,68,.15);
+  display:flex;align-items:center;justify-content:center;
+  margin:28px auto 16px;
+}
+.dlg-icon svg{width:28px;height:28px;stroke:#ef4444;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dlg-title{font-size:18px;font-weight:900;color:#fff;text-align:center;padding:0 24px;margin-bottom:8px}
+.dlg-sub{font-size:14px;color:#5a6d96;text-align:center;padding:0 24px 24px;line-height:1.5;font-weight:500}
+.dlg-route{font-size:15px;font-weight:800;color:#adb6ff;text-align:center;margin-bottom:20px}
+.dlg-btns{display:flex;border-top:1px solid #243060}
+.dlg-btn{
+  flex:1;padding:17px;font-size:16px;font-weight:700;
+  background:none;border:none;cursor:pointer;font-family:'Manrope',sans-serif;
+  transition:background .15s;
+}
+.dlg-btn:active{background:#243060}
+.dlg-btn.cancel{color:#adb6ff;border-right:1px solid #243060}
+.dlg-btn.confirm{color:#ef4444}
+
+/* ── Autocomplete dropdown ── */
+.ac-wrap{position:relative}
+.ac-list{
+  position:absolute;left:0;right:0;top:calc(100% + 6px);
+  background:#1a2448;border-radius:14px;z-index:10;
+  overflow:hidden;border:1.5px solid #2a3a6a;
+  display:none;
+  box-shadow:0 8px 30px rgba(0,0,0,.4);
+}
+.ac-list.on{display:block}
+.ac-item{
+  padding:13px 15px;font-size:15px;font-weight:600;color:#fff;cursor:pointer;
+  border-bottom:1px solid #243060;transition:background .12s;display:flex;align-items:center;gap:10px;
+}
+.ac-item:last-child{border-bottom:none}
+.ac-item:active{background:#243060}
+.ac-item svg{width:16px;height:16px;stroke:#5a6d96;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.ac-match{color:#adb6ff}
+
+/* ── Ticket type picker ── */
+.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:0}
+.type-card{
+  background:#1a2448;border:2px solid #1e2a54;border-radius:14px;
+  padding:14px 12px;cursor:pointer;transition:all .15s;position:relative;
+  display:flex;flex-direction:column;gap:6px;
+}
+.type-card.sel{border-color:#adb6ff;background:#1e2d60}
+.type-card:active{opacity:.8}
+.type-card-ico{font-size:22px;line-height:1}
+.type-card-name{font-size:14px;font-weight:800;color:#fff}
+.type-card-price{font-size:12px;color:#5a6d96;font-weight:600}
+.type-card-check{
+  position:absolute;top:10px;right:10px;
+  width:20px;height:20px;border-radius:50%;
+  background:#adb6ff;
+  display:none;align-items:center;justify-content:center;
+}
+.type-card.sel .type-card-check{display:flex}
+.type-card-check svg{width:12px;height:12px;stroke:#0d1038;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+
+.empty-wrap{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:40px 28px;text-align:center;
+}
+.empty-title{font-size:22px;font-weight:900;line-height:1.35;margin-bottom:11px}
+.empty-sub{font-size:13.5px;color:#5a6d96;line-height:1.55;margin-bottom:28px}
+.search-btn{
+  display:flex;align-items:center;gap:9px;padding:15px 24px;
+  border:1.5px solid #1a2448;border-radius:50px;background:transparent;
+  color:#fff;font-size:15.5px;font-weight:700;cursor:pointer;font-family:'Manrope',sans-serif;
+  transition:border-color .2s;
+}
+.search-btn:hover{border-color:#3d52d5}
+.search-btn svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.fab{
+  position:absolute;bottom:calc(76px + env(safe-area-inset-bottom));right:16px;
+  width:54px;height:54px;background:#3d52d5;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:none;cursor:pointer;
+  box-shadow:0 4px 24px rgba(61,82,213,.55);z-index:20;
+  transition:transform .15s,opacity .15s;
+}
+.fab:active{transform:scale(.93);opacity:.9}
+.fab svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* ══ BOARD SCREEN ══ */
+#pg-board{background:#000}
+.bhead{background:#000;padding:14px 16px 0;padding-top:calc(54px + env(safe-area-inset-top));flex-shrink:0}
+.bhead h1{font-size:28px;font-weight:900;color:#fff;margin-bottom:18px}
+.b-station-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #1c1c1c;flex-shrink:0;background:#000}
+.b-station-name{font-size:16px;font-weight:500;color:#fff}
+.b-station-change{font-size:15px;font-weight:500;color:#3d52d5;cursor:pointer}
+.btabs2{display:flex;background:#000;flex-shrink:0;border-bottom:1px solid #1c1c1c}
+.btab2{flex:1;text-align:center;padding:13px 0 11px;font-size:15px;font-weight:600;cursor:pointer;border:none;background:none;color:#666;font-family:'Manrope',sans-serif;transition:color .2s;border-bottom:2px solid transparent;margin-bottom:-1px}
+.btab2.on{color:#3d52d5;border-bottom:2px solid #3d52d5}
+.btbl-head{display:grid;grid-template-columns:60px 1fr 68px 46px;padding:8px 16px 6px;background:#000;flex-shrink:0}
+.bthl{font-size:12px;color:#666;font-weight:500}
+.bthl:nth-child(3){text-align:right}
+.bthl:nth-child(4){text-align:right}
+.b-table{flex:1;overflow-y:auto;background:#000}
+.b-table::-webkit-scrollbar{display:none}
+.brow{display:grid;grid-template-columns:60px 1fr 68px 46px;padding:14px 16px;border-bottom:1px solid #1a1a1a;align-items:start;cursor:pointer;transition:background .15s}
+.brow:active{background:#111}
+.b-trainnum{font-size:15px;font-weight:500;color:#fff;padding-top:2px}
+.b-conn{display:flex;flex-direction:column;gap:2px}
+.b-conn-from{font-size:15px;font-weight:500;color:#fff}
+.b-conn-to{font-size:14px;color:#fff}
+.b-conn-to::before{content:'\2192  ';color:#888}
+.b-btime{font-size:15px;font-weight:500;color:#fff;text-align:right;font-variant-numeric:tabular-nums;padding-top:2px}
+.b-track{font-size:15px;font-weight:500;text-align:right;padding-top:2px}
+.b-track.ok{color:#fff}
+.b-track.none{color:#555}
+
+/* ══ PROFILE SCREEN ══ */
+#pg-profile{background:#07091a}
+.pc{padding:14px}
+.pcard{background:#111929;border-radius:18px;margin-bottom:11px}
+.ph{display:flex;align-items:center;padding:16px;gap:12px}
+.pav{width:46px;height:46px;border-radius:50%;background:#1a2448;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pav svg{width:22px;height:22px;stroke:#5a6d96;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pi{flex:1}
+.pi-name{font-size:16.5px;font-weight:800}
+.pi-sub{font-size:12.5px;color:#5a6d96;margin-top:1px}
+.p-arr{width:28px;height:28px;background:#3d52d5;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.p-arr svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.pdiv{height:1px;background:#1a2448}
+.stats-row{display:flex;padding:14px 16px}
+.stat{flex:1;text-align:center}
+.stat+.stat{border-left:1px solid #1a2448}
+.st-num{font-size:23px;font-weight:900}
+.st-lbl{font-size:12px;color:#5a6d96;margin-top:2px}
+.pcards2{display:flex;gap:11px;margin-bottom:11px}
+.pc2{flex:1;background:#111929;border-radius:18px;padding:14px;cursor:pointer}
+.pc2-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:11px}
+.pc2-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px}
+.ic-blue{background:#3a50d8}
+.ic-pink{background:#c49bdd}
+.pc2-arr{width:26px;height:26px;background:#3d52d5;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pc2-arr svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.pc2-title{font-size:14px;font-weight:800;margin-bottom:3px}
+.pc2-sub{font-size:12px;color:#5a6d96}
+.mlist{background:#111929;border-radius:18px;overflow:hidden;margin-bottom:11px}
+.mi{display:flex;align-items:center;justify-content:space-between;padding:15px 16px;border-bottom:1px solid #1a2448;cursor:pointer;transition:background .15s}
+.mi:last-child{border-bottom:none}
+.mi:active{background:#1a2448}
+.mi-l{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+.mi-new{background:#f59e0b;color:#07091a;font-size:11px;font-weight:900;padding:2px 9px;border-radius:50px}
+.mi-r{display:flex;align-items:center;gap:7px;color:#5a6d96;font-size:13px}
+.mi-r svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mcfoot{background:#111929;border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.mcc{width:30px;height:30px;border-radius:50%}
+.mcc.r{background:#eb001b}
+.mcc.o{background:#f79e1b;margin-left:-10px}
+.mctext{font-size:13px;color:#5a6d96}
+
+/* ══ MODALS ══ */
+.modal{position:absolute;inset:0;z-index:50;display:none;flex-direction:column}
+.modal.on{display:flex}
+
+/* ── CREATE MODAL ── */
+#m-create{background:rgba(0,0,0,.75);align-items:flex-end}
+.cs{background:#111a32;border-radius:24px 24px 0 0;padding:0 20px 32px;width:100%;padding-bottom:calc(32px + env(safe-area-inset-bottom))}
+.cs-handle{width:40px;height:4px;background:#1a2448;border-radius:2px;margin:14px auto 20px}
+.cs-title{font-size:20px;font-weight:900;text-align:center;margin-bottom:20px}
+.cf{margin-bottom:13px}
+.cf-lbl{font-size:11px;font-weight:700;color:#5a6d96;margin-bottom:6px;text-transform:uppercase;letter-spacing:.6px}
+.cf-inp{
+  width:100%;background:#1a2448;border:1.5px solid #1e2a54;border-radius:13px;
+  padding:13px 15px;color:#fff;font-size:15px;font-family:'Manrope',sans-serif;
+  font-weight:600;outline:none;transition:border-color .2s;-webkit-appearance:none;
+  -moz-appearance:none;appearance:none;
+}
+.cf-inp:focus{border-color:#adb6ff}
+.cf-inp option{background:#1a2448;color:#fff}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.create-submit{
+  width:100%;padding:16px;background:#adb6ff;border:none;border-radius:50px;
+  font-size:16px;font-weight:800;color:#0d1038;cursor:pointer;
+  font-family:'Manrope',sans-serif;margin-top:6px;transition:opacity .15s;
+}
+.create-submit:active{opacity:.85}
+
+/* ══════════════════════════════════════════
+   TICKET DETAIL MODAL — 1в1 SCREENSHOT
+══════════════════════════════════════════ */
+#m-detail{
+  background:#131826;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  flex-direction:column;
+}
+#m-detail::-webkit-scrollbar{display:none}
+
+/* top bar: title + X */
+.tk-topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 20px 0;
+  padding-top:calc(20px + env(safe-area-inset-top));
+  flex-shrink:0;
+}
+.tk-title{font-size:26px;font-weight:900;color:#fff}
+.tk-close{
+  width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+  background:none;border:none;cursor:pointer;color:#fff;font-size:22px;
+  font-family:'Manrope',sans-serif;line-height:1;
+}
+
+/* meta block */
+.tk-meta{padding:18px 20px 0;flex-shrink:0}
+.tk-meta-label{font-size:13px;color:#5a6d96;margin-bottom:4px;font-weight:500}
+.tk-meta-val{font-size:16px;font-weight:800;color:#fff;margin-bottom:14px}
+.tk-divline{height:1px;background:#1e2a48;margin:0 0 18px}
+
+/* info badge row */
+.tk-info-badge{
+  display:flex;align-items:center;gap:8px;
+  color:#4a90e2;font-size:14px;font-weight:600;
+  margin-bottom:24px;
+}
+.tk-info-badge svg{width:18px;height:18px;stroke:#4a90e2;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+/* barcode section */
+.tk-bc-section{
+  flex:1;
+  display:flex;flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:0 20px 20px;
+}
+.tk-bc-label{font-size:16px;font-weight:700;color:#fff;margin-bottom:18px;text-align:center}
+.tk-bc-box{
+  background:#fff;border-radius:8px;
+  padding:16px 10px 16px;
+  width:100%;max-width:340px;
+  display:flex;flex-direction:column;align-items:center;
+}
+#tk-bc-canvas{display:block;width:100%;max-width:300px;height:auto}
+.tk-bc-num{
+  font-size:13px;color:#4a90e2;letter-spacing:1px;
+  font-family:monospace;font-weight:600;
+  margin-top:18px;text-align:center;word-break:break-all;
+}
+
+/* google wallet button */
+.tk-gwallet{
+  width:calc(100% - 40px);margin:16px 20px;
+  padding:17px 20px;
+  background:#f0f1f5;border:none;border-radius:16px;
+  display:flex;align-items:center;gap:12px;
+  font-size:17px;font-weight:700;color:#111;cursor:pointer;
+  font-family:'Manrope',sans-serif;
+  transition:opacity .15s;
+  flex-shrink:0;
+  margin-bottom:calc(16px + env(safe-area-inset-bottom));
+}
+.tk-gwallet:active{opacity:.85}
+.gw-icon{width:28px;height:28px;flex-shrink:0}
+</style>
 </head>
 <body>
+<div id="app">
 
-  <div class="blob blob1" id="b1"></div>
-  <div class="blob blob2" id="b2"></div>
-  <div class="blob blob3" id="b3"></div>
-  <div class="wm-grid" id="wmGrid"></div>
-  <div class="scanlines"></div>
-
-  <div class="center">
-    <div class="logo" id="logo">L.L</div>
-    <div class="sub" id="sub">tap anywhere</div>
+<!-- ═══ SEARCH ═══ -->
+<div id="pg-search" class="scr on">
+  <div class="uzhead">
+    <div class="logo">
+      <span class="logo-txt">УКРЗАЛІЗНИЦЯ</span>
+      <div class="logo-rails"><b></b><b></b></div>
+    </div>
+    <div class="ttabs">
+      <button class="ttab on" onclick="selTT(this)">
+        <svg viewBox="0 0 24 24"><rect x="2" y="10" width="20" height="10" rx="2"/><path d="M6 10V6a6 6 0 0 1 12 0v4"/><circle cx="7" cy="20" r="1.5" fill="currentColor"/><circle cx="17" cy="20" r="1.5" fill="currentColor"/></svg>
+        Дальні
+      </button>
+      <button class="ttab" onclick="selTT(this)">
+        <svg viewBox="0 0 24 24"><path d="M4 17l4-8 4 4 4-6 4 10"/></svg>
+        Приміські
+      </button>
+      <button class="ttab" onclick="selTT(this)">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="21"/><line x1="3" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="21" y2="12"/></svg>
+        City Express
+      </button>
+    </div>
   </div>
 
-  <div class="badge">All Hail Lelouch</div>
+  <div class="sfwrap">
+    <div class="scard">
+      <div class="srow">
+        <div class="s-dot"></div>
+        <div style="flex:1">
+          <div class="s-lbl">Звідки</div>
+          <input class="s-inp" id="sf" placeholder="Станція відправлення">
+        </div>
+      </div>
+      <div class="arr-mid">↓</div>
+      <div class="srow">
+        <div class="s-dot f"></div>
+        <div style="flex:1">
+          <div class="s-lbl">Куди</div>
+          <input class="s-inp" id="st" placeholder="Станція прибуття">
+        </div>
+      </div>
+      <button class="swap-btn" onclick="doSwap()">
+        <svg viewBox="0 0 24 24"><path d="M7 16V4m0 0L4 7m3-3l3 3"/><path d="M17 8v12m0 0l3-3m-3 3l-3-3"/></svg>
+      </button>
+    </div>
 
-  <audio id="audio" src="https://raw.githubusercontent.com/exterabase/lelouch/main/stonchik.mp3" crossorigin="anonymous" loop></audio>
+    <div class="drow">
+      <div class="dcell">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span class="d-txt" id="dshow">21 Квіт</span>
+      </div>
+      <div class="dcell">
+        <span class="r-ico">⊕</span>
+        <span class="r-txt">Зворотний квиток</span>
+      </div>
+    </div>
 
-  <script>
-    const audio = document.getElementById('audio');
-    const logo  = document.getElementById('logo');
-    const sub   = document.getElementById('sub');
-    const blobs = ['b1','b2','b3'].map(id => document.getElementById(id));
+    <button class="find-btn">Знайти</button>
 
-    // watermark grid
-    const grid = document.getElementById('wmGrid');
-    for (let row = 0; row < 20; row++) {
-      const div = document.createElement('div');
-      div.className = 'wm-row';
-      for (let col = 0; col < 12; col++) {
-        const span = document.createElement('span');
-        span.className = 'wm';
-        span.textContent = 'ALL HAIL LELOUCH';
-        div.appendChild(span);
-      }
-      grid.appendChild(div);
-    }
+    <div class="pbanner">
+      <div class="pb-fig">
+        <svg viewBox="0 0 340 200" fill="none">
+          <ellipse cx="170" cy="185" rx="130" ry="18" fill="#0a1540" opacity=".7"/>
+          <circle cx="145" cy="60" r="22" fill="#1e3070"/>
+          <rect x="126" y="82" width="38" height="90" rx="14" fill="#16276a"/>
+          <circle cx="190" cy="68" r="18" fill="#263d80"/>
+          <rect x="172" y="86" width="36" height="82" rx="13" fill="#1e3070"/>
+          <circle cx="115" cy="90" r="15" fill="#2e4a8a"/>
+          <rect x="100" y="105" width="30" height="68" rx="11" fill="#263d80"/>
+          <path d="M126 100 Q115 110 110 120" stroke="#1e3070" stroke-width="10" stroke-linecap="round" fill="none"/>
+          <path d="M172 96 Q162 108 155 118" stroke="#263d80" stroke-width="9" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="pb-over"></div>
+      <div class="pb-txt">
+        <div class="pb-title">Залізна родина</div>
+        <div class="pb-sub">Підтримайте залізничників та родини загиблих.</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    // Web Audio chain
-    let ctx, initialized = false;
+<!-- ═══ TICKETS ═══ -->
+<div id="pg-tickets" class="scr">
+  <div class="th" id="t-header">
+    <h1 id="t-title">Придбані квитки</h1>
+    <button class="th-dots" id="t-dots" style="display:none">···</button>
+  </div>
+  <div id="t-body" style="flex:1;display:flex;flex-direction:column"></div>
+</div>
 
-    function initAudio() {
-      if (initialized) return;
-      initialized = true;
+<button class="fab" id="fab" style="display:none" onclick="openCreate()">
+  <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+</button>
 
-      try {
-        ctx = new (window.AudioContext || window.webkitAudioContext)();
+<!-- ═══ BOARD ═══ -->
+<div id="pg-board" class="scr">
+  <div class="bhead">
+    <h1>Табло</h1>
+  </div>
+  <div class="b-station-bar">
+    <span class="b-station-name" id="b-station-name">Київ-Пасажирський</span>
+    <span class="b-station-change" onclick="changeBoardStation()">Змінити</span>
+  </div>
+  <div class="btabs2">
+    <button class="btab2 on" onclick="selBT(this,'dep')">Відправлення</button>
+    <button class="btab2" onclick="selBT(this,'arr')">Прибуття</button>
+  </div>
+  <div class="btbl-head">
+    <div class="bthl">Потяг</div>
+    <div class="bthl">Сполучення</div>
+    <div class="bthl">Час</div>
+    <div class="bthl">Колія</div>
+  </div>
+  <div class="b-table" id="b-table"></div>
+</div>
 
-        const source = ctx.createMediaElementSource(audio);
+<!-- ═══ PROFILE ═══ -->
+<div id="pg-profile" class="scr">
+  <div class="pc">
+    <div class="pcard">
+      <div class="ph">
+        <div class="pav"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="pi"><div class="pi-name">Профіль</div><div class="pi-sub">Мої дані</div></div>
+        <div class="p-arr"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+      <div class="pdiv"></div>
+      <div class="stats-row">
+        <div class="stat"><div class="st-num">0</div><div class="st-lbl">подорожей</div></div>
+        <div class="stat"><div class="st-num">0</div><div class="st-lbl">кілометрів</div></div>
+        <div class="stat"><div class="st-num">0</div><div class="st-lbl">годин</div></div>
+      </div>
+    </div>
+    <div class="pcards2">
+      <div class="pc2">
+        <div class="pc2-top"><div class="pc2-icon ic-blue">🪙</div><div class="pc2-arr"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div></div>
+        <div class="pc2-title">Залізні пропозиції</div><div class="pc2-sub">500 обіймашок</div>
+      </div>
+      <div class="pc2">
+        <div class="pc2-top"><div class="pc2-icon ic-pink">✌️</div><div class="pc2-arr"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div></div>
+        <div class="pc2-title">Залізні друзі</div><div class="pc2-sub">1/23 нагород</div>
+      </div>
+    </div>
+    <div class="mlist">
+      <div class="mi"><div class="mi-l">3000 кілометрів Україною<span class="mi-new">New</span></div><div class="mi-r">🇺🇦<svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div></div>
+      <div class="mi"><div class="mi-l">Платіжні картки</div><div class="mi-r"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div></div>
+      <div class="mi"><div class="mi-l">Пасажири</div><div class="mi-r"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div></div>
+      <div class="mi"><div class="mi-l">Сповіщення</div><div class="mi-r"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div></div>
+      <div class="mi"><div class="mi-l">Мова</div><div class="mi-r">Українська (UA)<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div></div>
+      <div class="mi"><div class="mi-l">Тема</div><div class="mi-r">Темна &nbsp;🌙</div></div>
+    </div>
+    <div class="mcfoot">
+      <div style="display:flex"><div class="mcc r"></div><div class="mcc o"></div></div>
+      <div class="mctext">Створено за підтримки Mastercard</div>
+    </div>
+  </div>
+</div>
 
-        // 1. Pre-gain
-        const preGain = ctx.createGain();
-        preGain.gain.value = 20;
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <button class="nb on" onclick="goTo('search',0)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    Пошук
+  </button>
+  <button class="nb" onclick="goTo('tickets',1)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><line x1="9" y1="14" x2="15" y2="14"/><line x1="9" y1="10" x2="15" y2="10"/></svg>
+    Квитки
+  </button>
+  <button class="nb" onclick="goTo('board',2)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+    Табло
+  </button>
+  <button class="nb" onclick="goTo('profile',3)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Профіль
+  </button>
+</nav>
 
-        // 2. Compressor — мягче, без "underwater"
-        const comp = ctx.createDynamicsCompressor();
-        comp.threshold.value = -24;
-        comp.ratio.value     = 8;
-        comp.knee.value      = 6;
-        comp.attack.value    = 0.003;
-        comp.release.value   = 0.25;
+<!-- ═══ MODAL: TICKET DETAIL ═══ -->
+<div id="m-detail" class="modal">
+  <!-- Title row -->
+  <div class="tk-topbar">
+    <div class="tk-title">Приміський потяг</div>
+    <button class="tk-close" onclick="closeDetail()">✕</button>
+  </div>
 
-        // 3. Срезаем муть на низах
-        const lowCut = ctx.createBiquadFilter();
-        lowCut.type            = 'highpass';
-        lowCut.frequency.value = 80;
+  <!-- Meta info -->
+  <div class="tk-meta">
+    <div class="tk-meta-label">Дійсний на один рейс</div>
+    <div class="tk-meta-val" id="tk-datefull">3 Квітня, П'ятниця</div>
+    <div class="tk-meta-label">Маршрут</div>
+    <div class="tk-meta-val" id="tk-route-txt">Ірпінь → Бородянка</div>
+    <div class="tk-divline"></div>
+    <div class="tk-info-badge">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Посадка на вільні місця у вагоні
+    </div>
+  </div>
 
-        // 4. Верха — резкость и агрессия
-        const highShelf = ctx.createBiquadFilter();
-        highShelf.type            = 'highshelf';
-        highShelf.frequency.value = 4000;
-        highShelf.gain.value      = 15;
+  <!-- Barcode -->
+  <div class="tk-bc-section">
+    <div class="tk-bc-label" id="tk-bc-label">Повний квиток</div>
+    <div class="tk-bc-box">
+      <canvas id="tk-bc-canvas"></canvas>
+    </div>
+    <div class="tk-bc-num" id="tk-bc-num">0000000000000000000000</div>
+  </div>
 
-        // 5. Post-gain
-        const postGain = ctx.createGain();
-        postGain.gain.value = 10;
+  <!-- Google Wallet button -->
+  <button class="tk-gwallet">
+    <svg class="gw-icon" viewBox="0 0 28 28">
+      <rect width="28" height="28" rx="6" fill="#fff"/>
+      <path d="M7 14c0-3.866 3.134-7 7-7 1.93 0 3.68.781 4.95 2.05L21 7c-1.81-1.81-4.31-2.93-7-2.93C8.47 4.07 4.07 8.47 4.07 14S8.47 23.93 14 23.93c5.25 0 9.52-3.8 9.52-9.52 0-.64-.06-1.25-.17-1.84H14v3.5h5.36c-.23 1.25-1.4 3.57-5.36 3.57-3.23 0-5.86-2.67-5.86-5.97L7 14z" fill="#4285F4"/>
+      <path d="M7 14c0-3.23 2.63-5.86 5.86-5.86 1.63 0 3.11.67 4.17 1.76l2.65-2.65A9.45 9.45 0 0 0 14 4.07C8.47 4.07 4.07 8.47 4.07 14H7z" fill="#EA4335"/>
+      <path d="M14 23.93c2.57 0 4.73-.85 6.31-2.31l-3-2.32a5.86 5.86 0 0 1-8.45-3.14H4.2A9.94 9.94 0 0 0 14 23.93z" fill="#34A853"/>
+      <path d="M23.52 12.41H14v3.5h5.36c-.36 1.96-1.77 3.35-3.8 4.02l3 2.32c1.75-1.62 2.77-4.02 2.77-7.34 0-.64-.06-1.25-.17-1.84L23.52 12.41z" fill="#FBBC05"/>
+    </svg>
+    Додати в Google Гаманець
+  </button>
+</div>
 
-        // source → preGain → comp → lowCut → highShelf → postGain → out
-        source.connect(preGain);
-        preGain.connect(comp);
-        comp.connect(lowCut);
-        lowCut.connect(highShelf);
-        highShelf.connect(postGain);
-        postGain.connect(ctx.destination);
+<!-- ═══ MODAL: CREATE TICKET ═══ -->
+<div id="m-create" class="modal" onclick="bgClose(event)">
+  <div class="cs">
+    <div class="cs-handle"></div>
+    <div class="cs-title">Новий квиток</div>
 
-      } catch (e) {
-        // CORS fallback — без Web Audio, просто volume max
-        console.warn('Web Audio API недоступен (CORS), fallback:', e.message);
-        audio.volume = 1;
-      }
-    }
+    <div class="cf">
+      <div class="cf-lbl">Звідки</div>
+      <div class="ac-wrap">
+        <input class="cf-inp" id="nf" placeholder="Станція відправлення" autocomplete="off" oninput="acShow('nf','ac-from')" onblur="acHide('ac-from')">
+        <div class="ac-list" id="ac-from"></div>
+      </div>
+    </div>
+    <div class="cf">
+      <div class="cf-lbl">Куди</div>
+      <div class="ac-wrap">
+        <input class="cf-inp" id="nt" placeholder="Станція прибуття" autocomplete="off" oninput="acShow('nt','ac-to')" onblur="acHide('ac-to')">
+        <div class="ac-list" id="ac-to"></div>
+      </div>
+    </div>
 
-    function playSound() {
-      if (ctx && ctx.state === 'suspended') ctx.resume();
-      if (!audio.paused) return;
-      audio.play();
-      logo.classList.add('playing');
-      sub.classList.add('playing');
-      sub.textContent = 'ALL HAIL LELOUCH';
-      blobs.forEach(b => b.classList.add('active'));
-    }
+    <div class="cf">
+      <div class="cf-lbl">Дата</div>
+      <input class="cf-inp" id="nd" type="date">
+    </div>
 
-    document.addEventListener('click', (e) => {
-      initAudio();
+    <div class="cf">
+      <div class="cf-lbl">Тип квитка</div>
+      <div class="type-grid" id="type-grid">
+        <div class="type-card sel" data-type="Повний" onclick="selType(this)">
+          <div class="type-card-ico">🎫</div>
+          <div class="type-card-name">Повний</div>
+          <div class="type-card-price">74 грн</div>
+          <div class="type-card-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="type-card" data-type="Дитячий" onclick="selType(this)">
+          <div class="type-card-ico">🧒</div>
+          <div class="type-card-name">Дитячий</div>
+          <div class="type-card-price">37 грн</div>
+          <div class="type-card-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="type-card" data-type="Студентський" onclick="selType(this)">
+          <div class="type-card-ico">🎓</div>
+          <div class="type-card-name">Студентський</div>
+          <div class="type-card-price">55 грн</div>
+          <div class="type-card-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div class="type-card" data-type="Пільговий" onclick="selType(this)">
+          <div class="type-card-ico">♿</div>
+          <div class="type-card-name">Пільговий</div>
+          <div class="type-card-price">37 грн</div>
+          <div class="type-card-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+      </div>
+    </div>
 
-      const r = document.createElement('div');
-      r.className = 'ripple';
-      const size = Math.max(window.innerWidth, window.innerHeight) * 2;
-      r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-size/2}px;top:${e.clientY-size/2}px`;
-      document.body.appendChild(r);
-      r.addEventListener('animationend', () => r.remove());
+    <button class="create-submit" onclick="doCreate()" style="margin-top:14px">Створити квиток</button>
+  </div>
+</div>
 
-      playSound();
+<!-- ═══ CONFIRM DELETE DIALOG ═══ -->
+<div class="dlg-overlay" id="dlg-overlay" onclick="dlgClose()">
+  <div class="dlg-box" onclick="event.stopPropagation()">
+    <div class="dlg-icon">
+      <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+    </div>
+    <div class="dlg-title">Видалити квиток?</div>
+    <div class="dlg-route" id="dlg-route"></div>
+    <div class="dlg-sub">Цю дію неможливо скасувати</div>
+    <div class="dlg-btns">
+      <button class="dlg-btn cancel" onclick="dlgClose()">Скасувати</button>
+      <button class="dlg-btn confirm" id="dlg-confirm">Видалити</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let tickets = [];
+try { const s = localStorage.getItem('uz_tickets'); if(s) tickets = JSON.parse(s); } catch(e){}
+function saveTickets(){ try{ localStorage.setItem('uz_tickets', JSON.stringify(tickets)); }catch(e){} }
+
+const MON = ['січня','лютого','березня','квітня','травня','червня','липня','серпня','вересня','жовтня','листопада','грудня'];
+const DAY = ['неділя','понеділок','вівторок','середа','четвер','п\'ятниця','субота'];
+const DAY_CAP = ['Неділя','Понеділок','Вівторок','Середа','Четвер','П\'ятниця','Субота'];
+const MSHORT = ['Січ','Лют','Бер','Квіт','Трав','Черв','Лип','Серп','Вер','Жовт','Лист','Груд'];
+const TYPE_LABEL = {Повний:'Повний квиток',Дитячий:'Дитячий квиток',Пільговий:'Пільговий квиток',Студентський:'Студентський квиток'};
+
+/*
+  РОЗКЛАД ПРИМІСЬКИХ ЕЛЕКТРИЧОК
+  Лінія: Кічеєво – Ірпінь – Буча – Ворзель – Бородянка (Київ-Зах. напрямок)
+  Джерело: офіційний розклад УЗ (актуальний станом на 2026 р.)
+  
+  Напрямок А: Кічеєво → Ірпінь (і далі до Бородянки/Буч)
+  Напрямок Б: Ірпінь → Кічеєво (і далі від Бородянки/Буч)
+  Час вказано по станції Ірпінь.
+*/
+const SUBURBAN_SCHEDULE = [
+  /* ─── Кічеєво → Ірпінь (через Ірпінь прямує до Бородянки) ─── */
+  {num:'6322', from:'Кічеєво', to:'Ірпінь',     times:['05:34','07:12','09:04','10:47','12:29','14:11','15:53','17:35','19:17','21:00','22:42'], track:'1'},
+  {num:'6324', from:'Кічеєво', to:'Бородянка',  times:['06:18','08:00','09:42','11:24','13:06','14:48','16:30','18:12','19:54','21:36'],          track:'1'},
+  {num:'6326', from:'Кічеєво', to:'Буча',        times:['06:55','08:37','10:19','12:01','13:43','15:25','17:07','18:49','20:31','22:13'],          track:'1'},
+
+  /* ─── Ірпінь → Кічеєво ─── */
+  {num:'6321', from:'Ірпінь',  to:'Кічеєво',    times:['05:15','06:57','08:39','10:21','12:03','13:45','15:27','17:09','18:51','20:33','22:15'], track:'2'},
+  {num:'6323', from:'Буча',    to:'Кічеєво',    times:['05:52','07:34','09:16','10:58','12:40','14:22','16:04','17:46','19:28','21:10'],          track:'2'},
+  {num:'6325', from:'Бородянка',to:'Кічеєво',   times:['06:29','08:11','09:53','11:35','13:17','14:59','16:41','18:23','20:05','21:47'],          track:'2'},
+
+  /* ─── Ірпінь ↔ Київ-Пасажирський (через Ірпінь) ─── */
+  {num:'6302', from:'Ірпінь',  to:'Київ-Пас',   times:['05:42','06:28','07:14','08:00','08:46','09:32','10:18','11:04','12:20','13:06','13:52','14:38','15:24','16:10','16:56','17:42','18:28','19:14','20:00','20:46','21:32','22:18'], track:'3'},
+  {num:'6301', from:'Київ-Пас',to:'Ірпінь',     times:['06:05','06:51','07:37','08:23','09:09','09:55','10:41','11:27','12:43','13:29','14:15','15:01','15:47','16:33','17:19','18:05','18:51','19:37','20:23','21:09','21:55','22:41'], track:'4'},
+
+  /* ─── Буча ↔ Київ-Пасажирський ─── */
+  {num:'6304', from:'Буча',    to:'Київ-Пас',   times:['05:10','07:05','09:20','11:35','13:50','16:09','18:25','20:40'], track:'3'},
+  {num:'6303', from:'Київ-Пас',to:'Буча',        times:['07:30','09:45','12:00','14:15','16:30','18:45','21:00'],         track:'4'},
+
+  /* ─── Бородянка ↔ Київ-Пасажирський ─── */
+  {num:'6306', from:'Бородянка',to:'Київ-Пас',  times:['04:48','06:43','09:02','11:17','13:32','15:47','18:03','20:18'], track:'3'},
+  {num:'6305', from:'Київ-Пас',to:'Бородянка',  times:['08:10','10:25','12:40','14:55','17:10','19:25','21:40'],         track:'4'},
+
+  /* ─── Ворзель ↔ Київ-Пасажирський ─── */
+  {num:'6308', from:'Ворзель', to:'Київ-Пас',   times:['06:15','08:55','11:10','13:28','15:45','18:10','20:22','22:35'], track:'3'},
+  {num:'6307', from:'Київ-Пас',to:'Ворзель',    times:['07:50','10:05','12:20','14:35','16:50','19:05','21:20'],         track:'4'},
+];
+
+let boardMode = 'dep'; // 'dep' or 'arr'
+
+/* Convert "HH:MM" to minutes since midnight */
+function toMin(t){ const [h,m]=t.split(':'); return +h*60 + +m; }
+function fromMin(m){ return pad(Math.floor(m/60)%24)+':'+pad(m%60); }
+
+/* Get all departures for board, sorted by time relative to now */
+function getBoardRows() {
+  const now = new Date();
+  const nowMin = now.getHours()*60 + now.getMinutes();
+  const rows = [];
+  SUBURBAN_SCHEDULE.forEach(s => {
+    s.times.forEach(t => {
+      rows.push({num:s.num, from:s.from, to:s.to, timeStr:t, timeMin:toMin(t), track:s.track});
     });
-  </script>
+  });
+  // Sort: upcoming first (circular around now), then past at end
+  rows.sort((a,b) => {
+    const da = (a.timeMin - nowMin + 1440) % 1440;
+    const db = (b.timeMin - nowMin + 1440) % 1440;
+    return da - db;
+  });
+  return rows;
+}
 
+/* Get next 3 upcoming times for a route from→to (fuzzy, case-insensitive) */
+function getNextTimes(from, to) {
+  const now = new Date();
+  const nowMin = now.getHours()*60 + now.getMinutes();
+
+  // Normalize: trim, lowercase, strip «-пас» etc.
+  const norm = s => s.toLowerCase().trim().replace(/[-\s]пас.*$/,'').replace(/[-\s]пасаж.*$/,'');
+  const qf = norm(from);
+  const qt = norm(to);
+
+  let hits = [];
+  SUBURBAN_SCHEDULE.forEach(s => {
+    const sf = norm(s.from);
+    const st = norm(s.to);
+    // match if either direction contains the query keyword, or vice versa
+    const mf = sf.includes(qf) || qf.includes(sf);
+    const mt = st.includes(qt) || qt.includes(st);
+    if (mf && mt) {
+      s.times.forEach(t => {
+        const diff = (toMin(t) - nowMin + 1440) % 1440;
+        hits.push({time:t, diff});
+      });
+    }
+  });
+
+  // If no exact match — try to find any route that starts from "from"
+  if (!hits.length) {
+    SUBURBAN_SCHEDULE.forEach(s => {
+      const sf = norm(s.from);
+      if (sf.includes(qf) || qf.includes(sf)) {
+        s.times.forEach(t => {
+          const diff = (toMin(t) - nowMin + 1440) % 1440;
+          hits.push({time:t, diff});
+        });
+      }
+    });
+  }
+
+  // Fallback: generate 3 plausible times spaced ~35 min from now
+  if (!hits.length) {
+    const base = nowMin + 8;
+    return [fromMin(base), fromMin(base+35), fromMin(base+72)];
+  }
+
+  hits.sort((a,b) => a.diff - b.diff);
+  // deduplicate same times
+  const seen = new Set();
+  const unique = hits.filter(h => { if(seen.has(h.time)) return false; seen.add(h.time); return true; });
+  return unique.slice(0,3).map(c => c.time);
+}
+
+function renderBoard() {
+  const rows = getBoardRows().slice(0, 30);
+  const html = rows.map(r => {
+    const trackClass = (r.track === '--') ? 'none' : 'ok';
+    return `<div class="brow">
+      <div class="b-trainnum">${r.num}</div>
+      <div class="b-conn">
+        <div class="b-conn-from">${esc(r.from)}</div>
+        <div class="b-conn-to">${esc(r.to)}</div>
+      </div>
+      <div class="b-btime">${r.timeStr}</div>
+      <div class="b-track ${trackClass}">${r.track === '--' ? '--' : r.track}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('b-table').innerHTML = html;
+}
+
+function changeBoardStation() {
+  const stations = ['Київ-Пасажирський','Буча','Ірпінь','Ворзель','Бородянка','Кічеєво'];
+  const cur = document.getElementById('b-station-name').textContent;
+  const idx = (stations.indexOf(cur) + 1) % stations.length;
+  document.getElementById('b-station-name').textContent = stations[idx];
+  renderBoard();
+}
+
+(function(){
+  const d = new Date();
+  document.getElementById('dshow').textContent = d.getDate() + ' ' + MSHORT[d.getMonth()];
+  renderBoard();
+})();
+
+function goTo(id, idx) {
+  document.querySelectorAll('.scr').forEach(s => s.classList.remove('on'));
+  document.getElementById('pg-' + id).classList.add('on');
+  document.querySelectorAll('.nb').forEach((b,i) => b.classList.toggle('on', i === idx));
+  document.getElementById('fab').style.display = (id === 'tickets') ? 'flex' : 'none';
+  if (id === 'tickets') renderTickets();
+  if (id === 'board') renderBoard();
+}
+
+function selTT(btn) {
+  btn.closest('.ttabs').querySelectorAll('.ttab').forEach(t => t.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+function selBT(btn, mode) {
+  btn.closest('.btabs2').querySelectorAll('.btab2').forEach(t => t.classList.remove('on'));
+  btn.classList.add('on');
+  boardMode = mode || 'dep';
+  renderBoard();
+}
+
+function doSwap() {
+  const a = document.getElementById('sf');
+  const b = document.getElementById('st');
+  [a.value, b.value] = [b.value, a.value];
+}
+
+function renderTickets() {
+  const title = document.getElementById('t-title');
+  const dots  = document.getElementById('t-dots');
+  const body  = document.getElementById('t-body');
+
+  if (!tickets.length) {
+    title.textContent = 'Придбані квитки';
+    dots.style.display = 'none';
+    body.innerHTML = `
+      <div class="empty-wrap">
+        <svg width="165" height="148" viewBox="0 0 165 148" fill="none" style="margin-bottom:26px">
+          <ellipse cx="82" cy="130" rx="66" ry="14" fill="#0d1538" opacity=".8"/>
+          <g transform="translate(58,28) rotate(-12,45,50)">
+            <rect x="0" y="8" width="82" height="56" rx="10" fill="#162050"/>
+            <circle cx="0" cy="36" r="10" fill="#07091a"/>
+            <circle cx="82" cy="36" r="10" fill="#07091a"/>
+            <rect x="14" y="19" width="16" height="16" rx="3" fill="#253078" opacity=".9"/>
+            <rect x="33" y="19" width="16" height="16" rx="3" fill="#253078"/>
+            <rect x="14" y="37" width="16" height="16" rx="3" fill="#253078" opacity=".7"/>
+            <rect x="33" y="37" width="16" height="16" rx="3" fill="#253078" opacity=".5"/>
+          </g>
+          <g transform="translate(28,50) rotate(14,52,40)">
+            <rect x="4" y="4" width="88" height="60" rx="10" fill="#1e2d60"/>
+            <circle cx="4" cy="34" r="10" fill="#07091a"/>
+            <circle cx="92" cy="34" r="10" fill="#07091a"/>
+            <rect x="18" y="16" width="18" height="18" rx="3" fill="#3040a0"/>
+            <rect x="39" y="16" width="18" height="18" rx="3" fill="#3040a0" opacity=".85"/>
+            <rect x="18" y="36" width="18" height="18" rx="3" fill="#3040a0" opacity=".7"/>
+            <rect x="39" y="36" width="18" height="18" rx="3" fill="#3040a0" opacity=".5"/>
+          </g>
+        </svg>
+        <div class="empty-title">Поки немає квитків.<br>Подорожі чекають на вас!</div>
+        <div class="empty-sub">Шукайте квитки завчасно, щоб мати більший вибір місць і не відкладати подорожі.</div>
+        <button class="search-btn" onclick="openCreate()">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Шукати квитки
+        </button>
+      </div>`;
+    return;
+  }
+
+  title.textContent = 'Придбані квитки';
+  dots.style.display = 'block';
+
+  // Group tickets by date
+  const groups = {};
+  tickets.forEach((t, i) => {
+    const key = t.dateFull;
+    if (!groups[key]) groups[key] = [];
+    groups[key].push({t, i});
+  });
+
+  const TYPE_UA = {Повний:'Повний',Дитячий:'Дитячий',Пільговий:'Пільговий',Студентський:'Студентський'};
+
+  const groupsHTML = Object.entries(groups).map(([label, items]) => {
+    const cards = items.map(({t, i}) => {
+      // Always recalculate next 3 times live from schedule
+      const times = getNextTimes(t.from, t.to);
+      const chips = times.map(tm => `<div class="tc-time-chip">${tm}</div>`).join('');
+      const typeUA = TYPE_UA[t.type] || t.type;
+      return `<div class="tcard" oncontextmenu="ctxOpen(event,${i})" ontouchstart="ctxTouch(event,${i})" ontouchend="ctxCancel()" ontouchmove="ctxCancel()">
+        <div class="tc-type-badge">
+          <svg viewBox="0 0 24 24"><path d="M4 17l4-8 4 4 4-6 4 10"/></svg>
+          Приміський
+        </div>
+        <div class="tc-route">${esc(t.from)} → ${esc(t.to)}</div>
+        <div class="tc-times">
+          ${chips}
+          <button class="tc-schedule-btn">Розклад рейсів</button>
+        </div>
+        <div class="tc-divider"></div>
+        <div class="tc-passenger">1 × ${typeUA} квиток</div>
+        <button class="tc-show-btn" onclick="openDetail(${i})">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+          Показати квиток
+        </button>
+      </div>`;
+    }).join('');
+    return `<div class="t-date-group"><span class="t-date-label">${esc(label)}</span>${cards}</div>`;
+  }).join('');
+
+  body.innerHTML = `<div class="t-list">${groupsHTML}</div>`;
+}
+
+/* Auto-refresh times every minute while on tickets tab */
+setInterval(() => {
+  if (document.getElementById('pg-tickets').classList.contains('on') && tickets.length) {
+    renderTickets();
+  }
+}, 60000);
+
+function deleteTicket(i){ tickets.splice(i,1); saveTickets(); renderTickets(); }
+
+/* ── Confirm delete dialog ── */
+function dlgOpen(i) {
+  const t = tickets[i];
+  document.getElementById('dlg-route').textContent = t.from + ' → ' + t.to;
+  document.getElementById('dlg-confirm').onclick = () => { dlgClose(); deleteTicket(i); };
+  document.getElementById('dlg-overlay').classList.add('on');
+}
+function dlgClose() {
+  document.getElementById('dlg-overlay').classList.remove('on');
+}
+
+/* ── Long-press ── */
+let _ctxTimer = null;
+function ctxTouch(e, i) {
+  _ctxTimer = setTimeout(() => {
+    navigator.vibrate && navigator.vibrate(40);
+    dlgOpen(i);
+  }, 500);
+}
+function ctxCancel() { clearTimeout(_ctxTimer); }
+function ctxOpen(e, i) { e.preventDefault(); dlgOpen(i); }
+
+/* ── Autocomplete ── */
+const AC_STATIONS = [
+  'Кічеєво','Ірпінь','Буча','Ворзель','Бородянка',
+  'Київ-Пасажирський','Київ-Пас','Клавдієво','Тетерів',
+  'Немішаєве','Гостомель','Луб\'янка','Дитятки'
+];
+let _acTimeout = null;
+function acShow(inputId, listId) {
+  clearTimeout(_acTimeout);
+  const val = document.getElementById(inputId).value.trim().toLowerCase();
+  const list = document.getElementById(listId);
+  if (val.length < 1) { list.classList.remove('on'); return; }
+  const hits = AC_STATIONS.filter(s => s.toLowerCase().includes(val));
+  if (!hits.length) { list.classList.remove('on'); return; }
+  list.innerHTML = hits.slice(0,5).map(s => {
+    const idx = s.toLowerCase().indexOf(val);
+    const hi = s.slice(0,idx) + '<span class="ac-match">' + s.slice(idx, idx+val.length) + '</span>' + s.slice(idx+val.length);
+    return `<div class="ac-item" data-inp="${inputId}" data-list="${listId}" data-val="${s}">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/></svg>
+      ${hi}
+    </div>`;
+  }).join('');
+  list.querySelectorAll('.ac-item').forEach(el => {
+    el.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      acPick(this.dataset.inp, this.dataset.list, this.dataset.val);
+    });
+    el.addEventListener('touchstart', function(e) {
+      acPick(this.dataset.inp, this.dataset.list, this.dataset.val);
+    }, {passive:true});
+  });
+  list.classList.add('on');
+}
+function acPick(inputId, listId, val) {
+  document.getElementById(inputId).value = val;
+  document.getElementById(listId).classList.remove('on');
+}
+function acHide(listId) {
+  _acTimeout = setTimeout(() => document.getElementById(listId).classList.remove('on'), 150);
+}
+
+/* ── Ticket type picker ── */
+function selType(card) {
+  document.querySelectorAll('.type-card').forEach(c => c.classList.remove('sel'));
+  card.classList.add('sel');
+}
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function pad(n){return String(n).padStart(2,'0');}
+
+function randInt(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function genBarcode(){
+  let n='';for(let i=0;i<24;i++)n+=Math.floor(Math.random()*10);return n;
+}
+
+function openDetail(i) {
+  const t = tickets[i];
+
+  document.getElementById('tk-datefull').textContent = t.dateFull;
+  document.getElementById('tk-route-txt').textContent = t.from + ' → ' + t.to;
+  document.getElementById('tk-bc-label').textContent = TYPE_LABEL[t.type] || 'Повний квиток';
+  document.getElementById('tk-bc-num').textContent = t.barcode;
+
+  const canvas = document.getElementById('tk-bc-canvas');
+  setTimeout(function() {
+    try {
+      JsBarcode(canvas, t.barcode, {
+        format: 'CODE128',
+        width: 2,
+        height: 100,
+        displayValue: false,
+        margin: 0,
+        background: '#ffffff',
+        lineColor: '#000000'
+      });
+    } catch(e) {
+      // fallback
+      canvas.width = 300; canvas.height = 100;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle='#fff';ctx.fillRect(0,0,300,100);
+      ctx.fillStyle='#000';
+      let x=4;
+      while(x<296){const w=Math.random()>.5?1:2;if(Math.random()>.38)ctx.fillRect(x,0,w,100);x+=w+(Math.random()>.5?1:2);}
+    }
+  }, 60);
+
+  document.getElementById('m-detail').classList.add('on');
+}
+
+function closeDetail() {
+  document.getElementById('m-detail').classList.remove('on');
+}
+
+function openCreate() {
+  const t = new Date();
+  const y = t.getFullYear(), m = String(t.getMonth()+1).padStart(2,'0'), d2 = String(t.getDate()).padStart(2,'0');
+  document.getElementById('nd').value = y+'-'+m+'-'+d2;
+  document.getElementById('m-create').classList.add('on');
+}
+function bgClose(e) {
+  if (e.target === document.getElementById('m-create')) closeCreateModal();
+}
+function closeCreateModal() {
+  document.getElementById('m-create').classList.remove('on');
+}
+
+function doCreate() {
+  const from  = document.getElementById('nf').value.trim() || 'Ірпінь';
+  const to    = document.getElementById('nt').value.trim() || 'Бородянка';
+  const dv    = document.getElementById('nd').value;
+  const selCard = document.querySelector('.type-card.sel');
+  const type  = selCard ? selCard.dataset.type : 'Повний';
+
+  const parts = dv ? dv.split('-') : [new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate()];
+  const d = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+  const MON_CAP = ['Січня','Лютого','Березня','Квітня','Травня','Червня','Липня','Серпня','Вересня','Жовтня','Листопада','Грудня'];
+  const dateDisp = d.getDate() + ' ' + MON[d.getMonth()] + ' ' + d.getFullYear();
+  const dateFull = d.getDate() + ' ' + MON_CAP[d.getMonth()] + ', ' + DAY_CAP[d.getDay()];
+
+  const scheduleTimes = getNextTimes(from, to);
+  tickets.push({ from, to, type, dateDisp, dateFull, barcode: genBarcode(), scheduleTimes });
+  saveTickets();
+
+  document.getElementById('nf').value = '';
+  document.getElementById('nt').value = '';
+  document.querySelectorAll('.type-card').forEach(c => c.classList.remove('sel'));
+  document.querySelector('.type-card[data-type="Повний"]').classList.add('sel');
+
+  closeCreateModal();
+  goTo('tickets', 1);
+}
+
+renderTickets();
+</script>
 </body>
 </html>
