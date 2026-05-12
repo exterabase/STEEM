@@ -726,6 +726,12 @@
       "device_id": "8b3e696644382b09",
       "issued": "TODAY",
       "note": "C.C"
+    },
+    "YUEL-3H66-5EX4-ESS5": {
+      "active": true,
+      "device_id": "c46f34f70c50343a",
+      "issued": "TODAY",
+      "note": "Зайка"
       
     }
   }
